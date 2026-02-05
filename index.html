@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSVP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#173746;
+  --paper:#f5f1ee;
+  --bg:#e9e3df;
+  --ink:#23343b;
+  --gold:#b28a3b;
+  --shadow:0 22px 60px rgba(0,0,0,.18);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:Inter,sans-serif;
+  color:var(--ink);
+}
+
+.stage{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:24px;
+}
+
+.page{
+  width:min(980px,100%);
+  background:var(--paper);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.topbar{
+  padding:24px;
+  font-family:"Playfair Display",serif;
+  letter-spacing:.12em;
+  color:#6b7a80;
+}
+
+.hero{
+  background:var(--navy);
+  padding:40px 24px 150px;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+}
+
+.hero h1{
+  margin:0;
+  color:white;
+  font-family:"Playfair Display",serif;
+  letter-spacing:.08em;
+  font-size:52px;
+}
+
+.hero .date{
+  color:rgba(255,255,255,.7);
+  margin-top:10px;
+  letter-spacing:.18em;
+}
+
+.card{
+  max-width:760px;
+  margin:-100px auto 0;
+  background:var(--paper);
+  border:1px solid rgba(0,0,0,.06);
+  padding:40px 28px;
+
+  border-radius: 18px;
+box-shadow: 0 12px 30px rgba(0,0,0,.08);
+  
+}
+
+@media(max-width:600px){
+  .card{margin:-100px 16px 0}
+}
+
+.guest-title{
+  font-family:"Playfair Display",serif;
+  font-size:10px;
+  color: var(--gold);
+  margin:0 0 26px;
+}
+
+.label{
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  color:rgba(35,52,59,.5);
+  display:block;
+  margin:18px 0 8px;
+  font-size:20px;
+}
+
+select,input,textarea{
+  width:100%;
+  border:none;
+  border-bottom:2px solid rgba(35,52,59,.18);
+  background:transparent;
+  padding:14px 4px;
+  font-size:18px;
+  outline:none;
+}
+
+/* ✅ Goldener Trenner: immer symmetrisch */
+.divider{
+  height:3px;
+  background:var(--gold);
+  width:70%;
+  margin:30px auto; /* <<< zentriert, gleiche Enden */
+}
+
+/* Optional: etwas “edler” wie im Screenshot */
+@media(min-width:720px){
+  .divider{
+    height:2px;
+    width:60%;
+    margin:34px auto;
+  }
+}
+
+.cta{
+  display:flex;
+  justify-content:center;
+  margin-top:30px;
+}
+
+.hint{
+  text-align:center;
+  color: var(--navy);   /* exakt dein Header-Blau */
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  margin: 30px 0 12px;
+  opacity: 0.85;
+}
+
+.blue{
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.cta button{
+  -webkit-appearance: none;
+  appearance: none;
+
+  background: transparent;
+  color: var(--ink);                /* <<< Textfarbe fix */
+  border: 2px solid rgba(178,138,59,.65);
+
+  padding: 16px 30px;
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta button:hover{
+  background: rgba(178,138,59,.08);
+}
+.cta button:active{
+  transform: translateY(1px);
+}
+
+.question{margin-top:10px}
+</style>
+</head>
+
+<body>
+<main class="stage">
+  <section class="page">
+    <div class="topbar">JULIA & MARCEL</div>
+
+    <header class="hero">
+      <h1>RSVP</h1>
+      <div class="date">25.07.2026</div>
+    </header>
+
+    <section class="card">
+      <h2 class="guest-title">Wir bitten um Rückmeldung vor dem 01. Mai.</h2>
+
+      <form id="rsvpForm">
+
+        <!-- Kategorie 1: Name -->
+        <label class="label">Vor- und Nachname</label>
+        <input type="text" id="guestName" required>
+        <div class="divider" aria-hidden="true"></div>
+
+        <label class="label">Bist du an unserem Hochzeitstag dabei?</label>
+<select id="attending" required>
+  <option value="" disabled selected></option>
+  <option value="Ja">Yes, ich komme!</option>
+  <option value="Nein">Nein, ich denke aus der Ferne an euch.</option>
+</select>
+
+<div class="divider" aria-hidden="true"></div>
+
+        <!-- Kategorie 2: Personenanzahl -->
+       <div id="detailsWrap">
+
+  <label class="label">Anzahl der Personen</label>
+  <select id="personCount" required>
+    <option value="" disabled selected></option>
+    <option value="1">1 Person</option>
+    <option value="2">2 Personen</option>
+  </select>
+
+  <!-- kein Divider hier, weil Menüs dazugehören -->
+  <div id="mealContainer"></div>
+
+  <div id="hotelDivider" class="divider" aria-hidden="true"></div>
+  <label class="label">Dürfen wir dir ein Hotelzimmer reservieren?</label>
+  <select id="hotel" required>
+    <option value="" disabled selected></option>
+    <option>Einzelzimmer (65 € inkl. Frühstücksbuffet)</option>
+    <option>Doppelzimmer (94 € inkl. Frühstücksbuffet)</option>
+    <option>Nein, ich schlafe zu Hause.</option>
+  </select>
+
+  <div id="breakfastWrap" style="display:none;">
+    <label class="label">Planst du, am nächsten Morgen zum gemeinsamen Frühstück dazuzustoßen?</label>
+    <select id="breakfast">
+      <option value="" disabled selected></option>
+      <option>Ja, wir stoßen beim Frühstück (19,90 €) an!</option>
+      <option>Seid ihr verrückt - Nach der Party schlafe ich noch...</option>
+    </select>
+  </div>
+
+  <div class="divider" aria-hidden="true"></div>
+</div>
+
+        <!-- Kategorie 5: Song -->
+       <div id="funWrap">
+  <label class="label">Zuletzt die - getreu unserem Motto <span class="blue">"Come for the love, stay for the party"</span> - wichtigste Frage: Welcher Song bringt dich auf die Tanzfläche?</label>
+  <input type="text" id="song" placeholder="Songtitel + Interpret">
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <label class="label">Sonstige Wünsche / Unverträglichkeiten</label>
+  <textarea id="notes" rows="4" placeholder="z.B. Allergien, besondere Wünsche …"></textarea>
+</div>
+<p class="hint">
+  PS: Wenn ihr schon verheiratet seid, schickt uns doch bitte euer Lieblingshochzeitsbild von euch an juliundmarci@gmail.com oder per WhatsApp.
+</p>
+
+<div class="cta">
+  <button type="submit">Absenden</button>
+</div>
+
+      </form>
+    </section>
+  </section>
+</main>
+
+<script>
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbzGHOyoUJJPQ8iXbwDeA67IvT7My0t4bTZ5Q6qRHmQz6geLSXoGxym1ciEpSP_i3zGV/exec";
+
+const personSelect = document.getElementById("personCount");
+const mealContainer = document.getElementById("mealContainer");
+const attendingSelect = document.getElementById("attending");
+const detailsWrap = document.getElementById("detailsWrap");
+const funWrap = document.getElementById("funWrap");
+
+const hotelSelect = document.getElementById("hotel");
+const breakfastWrap = document.getElementById("breakfastWrap");
+const breakfastSelect = document.getElementById("breakfast");
+
+function applyAttendingState(){
+  const attending = attendingSelect.value;
+
+  const isYes = attending === "Ja";
+  detailsWrap.style.display = isYes ? "block" : "none";
+  funWrap.style.display = isYes ? "block" : "none";
+
+  // Required-Felder bei "Nein" deaktivieren, damit Submit möglich ist
+  document.getElementById("personCount").required = isYes;
+  document.getElementById("hotel").required = isYes;
+
+  if (!isYes) {
+    // Menüs + Frühstück zurücksetzen
+    document.getElementById("personCount").value = "";
+    mealContainer.innerHTML = "";
+
+    hotelSelect.value = "";
+    breakfastWrap.style.display = "none";
+    breakfastSelect.value = "";
+    breakfastSelect.removeAttribute("required");
+
+    document.getElementById("song").value = "";
+    document.getElementById("notes").value = "";
+  }
+}
+
+attendingSelect.addEventListener("change", applyAttendingState);
+applyAttendingState(); // initial
+
+function renderMeals(){
+  const count = Number(personSelect.value || 0);
+  mealContainer.innerHTML = "";
+
+  if (!count) {
+    return;
+  }
+
+  for (let i = 1; i <= count; i++) {
+    const div = document.createElement("div");
+    div.className = "question";
+    div.innerHTML = `
+      <label class="label">Person ${i} – Vorspeise</label>
+      <select required id="starter_${i}">
+        <option value="" disabled selected></option>
+        <option>Rinder-Carpaccio</option>
+        <option>Saccotini</option>
+        <option>Crostini</option>
+      </select>
+
+      <label class="label">Person ${i} – Hauptgang</label>
+      <select required id="main_${i}">
+        <option value="" disabled selected></option>
+        <option>Roastbeef</option>
+        <option>Doradenfilet</option>
+        <option>Gemüsestrudel</option>
+      </select>
+    `;
+    mealContainer.appendChild(div);
+  }
+
+}
+
+// ✅ Wichtig: Listener wieder dran
+personSelect.addEventListener("change", renderMeals);
+
+hotelSelect.addEventListener("change", () => {
+  const showBreakfast = hotelSelect.value === "Nein, ich schlafe zu Hause.";
+  breakfastWrap.style.display = showBreakfast ? "block" : "none";
+
+  if (showBreakfast) {
+    breakfastSelect.setAttribute("required", "required");
+  } else {
+    breakfastSelect.removeAttribute("required");
+    breakfastSelect.value = "";
+  }
+});
+
+document.getElementById("rsvpForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const menues = [];
+const personen = (attendingSelect.value === "Ja") ? Number(personSelect.value || 0) : 0;
+
+if (attendingSelect.value === "Ja") {
+  for (let i = 1; i <= personen; i++) {
+    menues.push({
+      person: i,
+      vorspeise: document.getElementById(`starter_${i}`)?.value || "",
+      hauptgang: document.getElementById(`main_${i}`)?.value || ""
+    });
+  }
+}
+
+  const payload = {
+    name: document.getElementById("guestName").value.trim(),
+    attending: attendingSelect.value,
+    personen,
+    menues,
+    hotelzimmer: hotelSelect.value,
+    fruehstueck: hotelSelect.value === "Nein" ? (breakfastSelect.value || "") : "",
+    song: document.getElementById("song").value.trim(),
+    notes: document.getElementById("notes").value.trim()
+  };
+
+  try {
+    await fetch(ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+
+    alert("Danke! Deine Antwort wurde gespeichert 🩵");
+
+    e.target.reset();
+    mealContainer.innerHTML = "";
+    breakfastWrap.style.display = "none";
+  } catch (err) {
+    console.error(err);
+    alert("Senden fehlgeschlagen. Bitte nochmal probieren.");
+  }
+});
+
+// Optional: Wenn du möchtest, dass beim Laden schon Menüs erscheinen,
+// falls eine Personenanzahl voreingestellt ist:
+// renderMeals();
+</script>
+</body>
+</html>
