@@ -75,10 +75,8 @@ body{
   background:var(--paper);
   border:1px solid rgba(0,0,0,.06);
   padding:40px 28px;
-
   border-radius: 18px;
-box-shadow: 0 12px 30px rgba(0,0,0,.08);
-  
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
 }
 
 @media(max-width:600px){
@@ -116,10 +114,9 @@ select,input,textarea{
   height:3px;
   background:var(--gold);
   width:70%;
-  margin:30px auto; /* <<< zentriert, gleiche Enden */
+  margin:30px auto;
 }
 
-/* Optional: etwas “edler” wie im Screenshot */
 @media(min-width:720px){
   .divider{
     height:2px;
@@ -136,7 +133,7 @@ select,input,textarea{
 
 .hint{
   text-align:center;
-  color: var(--navy);   /* exakt dein Header-Blau */
+  color: var(--navy);
   font-family: "Playfair Display", serif;
   font-size: 16px;
   margin: 30px 0 12px;
@@ -153,7 +150,7 @@ select,input,textarea{
   appearance: none;
 
   background: transparent;
-  color: var(--ink);                /* <<< Textfarbe fix */
+  color: var(--ink);
   border: 2px solid rgba(178,138,59,.65);
 
   padding: 16px 30px;
@@ -198,65 +195,73 @@ select,input,textarea{
         <div class="divider" aria-hidden="true"></div>
 
         <label class="label">Bist du an unserem Hochzeitstag dabei?</label>
-<select id="attending" required>
-  <option value="" disabled selected></option>
-  <option value="Ja">Yes, ich komme!</option>
-  <option value="Nein">Nein, ich denke aus der Ferne an euch.</option>
-</select>
+        <select id="attending" required>
+          <option value="" disabled selected></option>
+          <option value="Ja">Yes, ich komme!</option>
+          <option value="Nein">Nein, ich denke aus der Ferne an euch.</option>
+        </select>
 
-<div class="divider" aria-hidden="true"></div>
+        <div class="divider" aria-hidden="true"></div>
 
         <!-- Kategorie 2: Personenanzahl -->
-       <div id="detailsWrap">
+        <div id="detailsWrap">
 
-  <label class="label">Anzahl der Personen</label>
-  <select id="personCount" required>
-    <option value="" disabled selected></option>
-    <option value="1">1 Person</option>
-    <option value="2">2 Personen</option>
-  </select>
+          <label class="label">Anzahl der Personen</label>
+          <select id="personCount" required>
+            <option value="" disabled selected></option>
+            <option value="1">1 Person</option>
+            <option value="2">2 Personen</option>
+          </select>
 
-  <!-- kein Divider hier, weil Menüs dazugehören -->
-  <div id="mealContainer"></div>
+          <!-- ✅ NEU: Name 2 (nur wenn 2 Personen) -->
+          <div id="guest2Wrap" style="display:none;">
+            <label class="label">Name der zweiten Person</label>
+            <input type="text" id="guestName2">
+          </div>
 
-  <div id="hotelDivider" class="divider" aria-hidden="true"></div>
-  <label class="label">Dürfen wir dir ein Hotelzimmer reservieren?</label>
-  <select id="hotel" required>
-    <option value="" disabled selected></option>
-    <option>Einzelzimmer (65 € inkl. Frühstücksbuffet)</option>
-    <option>Doppelzimmer (94 € inkl. Frühstücksbuffet)</option>
-    <option>Nein, ich schlafe zu Hause.</option>
-  </select>
+          <!-- kein Divider hier, weil Menüs dazugehören -->
+          <div id="mealContainer"></div>
 
-  <div id="breakfastWrap" style="display:none;">
-    <label class="label">Planst du, am nächsten Morgen zum gemeinsamen Frühstück dazuzustoßen?</label>
-    <select id="breakfast">
-      <option value="" disabled selected></option>
-      <option>Ja, wir stoßen beim Frühstück (19,90 €) an!</option>
-      <option>Seid ihr verrückt - Nach der Party schlafe ich noch...</option>
-    </select>
-  </div>
+          <div id="hotelDivider" class="divider" aria-hidden="true"></div>
 
-  <div class="divider" aria-hidden="true"></div>
-</div>
+          <label class="label">Dürfen wir dir ein Hotelzimmer reservieren?</label>
+          <select id="hotel" required>
+            <option value="" disabled selected></option>
+            <option>Einzelzimmer (65 € inkl. Frühstücksbuffet)</option>
+            <option>Doppelzimmer (94 € inkl. Frühstücksbuffet)</option>
+            <option>Nein, ich schlafe zu Hause.</option>
+          </select>
+
+          <div id="breakfastWrap" style="display:none;">
+            <label class="label">Planst du, am nächsten Morgen zum gemeinsamen Frühstück dazuzustoßen?</label>
+            <select id="breakfast">
+              <option value="" disabled selected></option>
+              <option>Ja, wir stoßen beim Frühstück (19,90 €) an!</option>
+              <option>Seid ihr verrückt - Nach der Party schlafe ich noch...</option>
+            </select>
+          </div>
+
+          <div class="divider" aria-hidden="true"></div>
+        </div>
 
         <!-- Kategorie 5: Song -->
-       <div id="funWrap">
-  <label class="label">Zuletzt die - getreu unserem Motto <span class="blue">"Come for the love, stay for the party"</span> - wichtigste Frage: Welcher Song bringt dich auf die Tanzfläche?</label>
-  <input type="text" id="song" placeholder="Songtitel + Interpret">
+        <div id="funWrap">
+          <label class="label">Zuletzt die - getreu unserem Motto <span class="blue">"Come for the love, stay for the party"</span> - wichtigste Frage: Welcher Song bringt dich auf die Tanzfläche?</label>
+          <input type="text" id="song" placeholder="Songtitel + Interpret">
 
-  <div class="divider" aria-hidden="true"></div>
+          <div class="divider" aria-hidden="true"></div>
 
-  <label class="label">Sonstige Wünsche / Unverträglichkeiten</label>
-  <textarea id="notes" rows="4" placeholder="z.B. Allergien, besondere Wünsche …"></textarea>
-</div>
-<p class="hint">
-  PS: Wenn ihr schon verheiratet seid, schickt uns doch bitte euer Lieblingshochzeitsbild von euch an juliundmarci@gmail.com oder per WhatsApp.
-</p>
+          <label class="label">Sonstige Wünsche / Unverträglichkeiten</label>
+          <textarea id="notes" rows="4" placeholder="z.B. Allergien, besondere Wünsche …"></textarea>
+        </div>
 
-<div class="cta">
-  <button type="submit">Absenden</button>
-</div>
+        <p class="hint">
+          PS: Wenn ihr schon verheiratet seid, schickt uns doch bitte euer Lieblingshochzeitsbild von euch an juliundmarci@gmail.com oder per WhatsApp.
+        </p>
+
+        <div class="cta">
+          <button type="submit">Absenden</button>
+        </div>
 
       </form>
     </section>
@@ -266,31 +271,47 @@ select,input,textarea{
 <script>
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbzGHOyoUJJPQ8iXbwDeA67IvT7My0t4bTZ5Q6qRHmQz6geLSXoGxym1ciEpSP_i3zGV/exec";
 
-const personSelect = document.getElementById("personCount");
-const mealContainer = document.getElementById("mealContainer");
 const attendingSelect = document.getElementById("attending");
 const detailsWrap = document.getElementById("detailsWrap");
 const funWrap = document.getElementById("funWrap");
+
+const personSelect = document.getElementById("personCount");
+const mealContainer = document.getElementById("mealContainer");
+
+const guestName1 = document.getElementById("guestName");
+const guest2Wrap = document.getElementById("guest2Wrap");
+const guestName2 = document.getElementById("guestName2");
 
 const hotelSelect = document.getElementById("hotel");
 const breakfastWrap = document.getElementById("breakfastWrap");
 const breakfastSelect = document.getElementById("breakfast");
 
-function applyAttendingState(){
-  const attending = attendingSelect.value;
+function getDisplayName(i){
+  const n1 = guestName1.value.trim();
+  const n2 = guestName2.value.trim();
+  if (i === 1) return n1 || "Person 1";
+  if (i === 2) return n2 || "Person 2";
+  return `Person ${i}`;
+}
 
-  const isYes = attending === "Ja";
+function applyAttendingState(){
+  const isYes = attendingSelect.value === "Ja";
+
   detailsWrap.style.display = isYes ? "block" : "none";
   funWrap.style.display = isYes ? "block" : "none";
 
   // Required-Felder bei "Nein" deaktivieren, damit Submit möglich ist
-  document.getElementById("personCount").required = isYes;
-  document.getElementById("hotel").required = isYes;
+  personSelect.required = isYes;
+  hotelSelect.required = isYes;
 
   if (!isYes) {
-    // Menüs + Frühstück zurücksetzen
-    document.getElementById("personCount").value = "";
+    // Reset Details
+    personSelect.value = "";
     mealContainer.innerHTML = "";
+
+    guest2Wrap.style.display = "none";
+    guestName2.removeAttribute("required");
+    guestName2.value = "";
 
     hotelSelect.value = "";
     breakfastWrap.style.display = "none";
@@ -309,15 +330,13 @@ function renderMeals(){
   const count = Number(personSelect.value || 0);
   mealContainer.innerHTML = "";
 
-  if (!count) {
-    return;
-  }
+  if (!count) return;
 
   for (let i = 1; i <= count; i++) {
     const div = document.createElement("div");
     div.className = "question";
     div.innerHTML = `
-      <label class="label">Person ${i} – Vorspeise</label>
+      <label class="label">${getDisplayName(i)} – Vorspeise</label>
       <select required id="starter_${i}">
         <option value="" disabled selected></option>
         <option>Rinder-Carpaccio</option>
@@ -325,7 +344,7 @@ function renderMeals(){
         <option>Crostini</option>
       </select>
 
-      <label class="label">Person ${i} – Hauptgang</label>
+      <label class="label">${getDisplayName(i)} – Hauptgang</label>
       <select required id="main_${i}">
         <option value="" disabled selected></option>
         <option>Roastbeef</option>
@@ -335,11 +354,27 @@ function renderMeals(){
     `;
     mealContainer.appendChild(div);
   }
-
 }
 
-// ✅ Wichtig: Listener wieder dran
-personSelect.addEventListener("change", renderMeals);
+// Wenn Personenanzahl geändert wird: ggf. Name 2 anzeigen + required setzen + Menüs rendern
+personSelect.addEventListener("change", () => {
+  const count = Number(personSelect.value || 0);
+
+  if (count === 2) {
+    guest2Wrap.style.display = "block";
+    guestName2.setAttribute("required", "required");
+  } else {
+    guest2Wrap.style.display = "none";
+    guestName2.removeAttribute("required");
+    guestName2.value = "";
+  }
+
+  renderMeals();
+});
+
+// Wenn Namen getippt werden: Labels in Menüs live aktualisieren
+guestName1.addEventListener("input", renderMeals);
+guestName2.addEventListener("input", renderMeals);
 
 hotelSelect.addEventListener("change", () => {
   const showBreakfast = hotelSelect.value === "Nein, ich schlafe zu Hause.";
@@ -357,25 +392,27 @@ document.getElementById("rsvpForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const menues = [];
-const personen = (attendingSelect.value === "Ja") ? Number(personSelect.value || 0) : 0;
+  const personen = (attendingSelect.value === "Ja") ? Number(personSelect.value || 0) : 0;
 
-if (attendingSelect.value === "Ja") {
-  for (let i = 1; i <= personen; i++) {
-    menues.push({
-      person: i,
-      vorspeise: document.getElementById(`starter_${i}`)?.value || "",
-      hauptgang: document.getElementById(`main_${i}`)?.value || ""
-    });
+  if (attendingSelect.value === "Ja") {
+    for (let i = 1; i <= personen; i++) {
+      menues.push({
+        person: i,
+        name: getDisplayName(i), // ✅ neu: Name pro Person
+        vorspeise: document.getElementById(`starter_${i}`)?.value || "",
+        hauptgang: document.getElementById(`main_${i}`)?.value || ""
+      });
+    }
   }
-}
 
   const payload = {
-    name: document.getElementById("guestName").value.trim(),
+    name: guestName1.value.trim(),
+    name2: guestName2.value.trim(), // ✅ neu: zweiter Name (optional fürs Sheet)
     attending: attendingSelect.value,
     personen,
     menues,
     hotelzimmer: hotelSelect.value,
-    fruehstueck: hotelSelect.value === "Nein" ? (breakfastSelect.value || "") : "",
+    fruehstueck: (hotelSelect.value === "Nein, ich schlafe zu Hause.") ? (breakfastSelect.value || "") : "", // ✅ fix
     song: document.getElementById("song").value.trim(),
     notes: document.getElementById("notes").value.trim()
   };
@@ -393,15 +430,18 @@ if (attendingSelect.value === "Ja") {
     e.target.reset();
     mealContainer.innerHTML = "";
     breakfastWrap.style.display = "none";
+
+    guest2Wrap.style.display = "none";
+    guestName2.removeAttribute("required");
+    guestName2.value = "";
+
+    applyAttendingState();
   } catch (err) {
     console.error(err);
     alert("Senden fehlgeschlagen. Bitte nochmal probieren.");
   }
 });
-
-// Optional: Wenn du möchtest, dass beim Laden schon Menüs erscheinen,
-// falls eine Personenanzahl voreingestellt ist:
-// renderMeals();
 </script>
+
 </body>
 </html>
