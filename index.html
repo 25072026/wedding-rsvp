@@ -176,6 +176,41 @@ select,input,textarea{
 }
 
 .question{margin-top:10px}
+
+/* Bestätigungsanzeige */
+.success-message{
+  display:none;
+  text-align:center;
+  padding:40px 20px;
+  opacity:0;
+  transform:translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.success-message.show{
+  display:block;
+  opacity:1;
+  transform:translateY(0);
+}
+
+.success-message h2{
+  font-family:"Playfair Display",serif;
+  color:var(--navy);
+  margin-bottom:20px;
+  font-size:28px;
+}
+
+.success-message p{
+  font-size:18px;
+  line-height:1.6;
+}
+
+.success-signature{
+  margin-top:30px;
+  font-family:"Playfair Display",serif;
+  color:var(--gold);
+  letter-spacing:0.1em;
+}
 </style>
 </head>
 
@@ -269,6 +304,18 @@ select,input,textarea{
         </div>
 
       </form>
+      <div id="successMessage" class="success-message">
+  <h2>Vielen Dank für deine Rückmeldung!</h2>
+
+  <p>
+    Wir freuen uns sehr, diesen besonderen Tag mit dir zu feiern.<br>
+    Bei Änderungen kannst du uns jederzeit kontaktieren.
+  </p>
+
+  <div class="success-signature">
+    Julia & Marcel
+  </div>
+</div>
     </section>
   </section>
 </main>
@@ -438,7 +485,16 @@ submitBtn.textContent = "Sende…";
     body: JSON.stringify(payload)
   });
 
-  alert("Danke! Deine Antwort wurde gespeichert 🩵");
+  const form = document.getElementById("rsvpForm");
+const success = document.getElementById("successMessage");
+
+form.style.display = "none";
+success.style.display = "block";
+
+setTimeout(() => {
+  success.classList.add("show");
+  window.scrollTo({ top: 0, behavior: "smooth" }); // ✅ Extra-Zeile
+}, 10);
 
   e.target.reset();
   mealContainer.innerHTML = "";
