@@ -163,6 +163,11 @@ select,input,textarea{
   justify-content: center;
 }
 
+  .cta button:disabled{
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .cta button:hover{
   background: rgba(178,138,59,.08);
 }
@@ -260,7 +265,7 @@ select,input,textarea{
         </p>
 
         <div class="cta">
-          <button type="submit">Absenden</button>
+          <button id="submitBtn" type="submit">Absenden</button>
         </div>
 
       </form>
@@ -285,6 +290,9 @@ const guestName2 = document.getElementById("guestName2");
 const hotelSelect = document.getElementById("hotel");
 const breakfastWrap = document.getElementById("breakfastWrap");
 const breakfastSelect = document.getElementById("breakfast");
+
+const submitBtn = document.getElementById("submitBtn");
+let isSubmitting = false;
 
 function getDisplayName(i){
   const n1 = guestName1.value.trim();
@@ -389,7 +397,12 @@ hotelSelect.addEventListener("change", () => {
 });
 
 document.getElementById("rsvpForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  e.preventDefault();if (isSubmitting) return;
+isSubmitting = true;
+
+submitBtn.disabled = true;
+const originalText = submitBtn.textContent;
+submitBtn.textContent = "Sende…";
 
   const menues = [];
   const personen = (attendingSelect.value === "Ja") ? Number(personSelect.value || 0) : 0;
@@ -418,28 +431,32 @@ document.getElementById("rsvpForm").addEventListener("submit", async (e) => {
   };
 
   try {
-    await fetch(ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    });
+  await fetch(ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  });
 
-    alert("Danke! Deine Antwort wurde gespeichert 🩵");
+  alert("Danke! Deine Antwort wurde gespeichert 🩵");
 
-    e.target.reset();
-    mealContainer.innerHTML = "";
-    breakfastWrap.style.display = "none";
+  e.target.reset();
+  mealContainer.innerHTML = "";
+  breakfastWrap.style.display = "none";
 
-    guest2Wrap.style.display = "none";
-    guestName2.removeAttribute("required");
-    guestName2.value = "";
+  guest2Wrap.style.display = "none";
+  guestName2.removeAttribute("required");
+  guestName2.value = "";
 
-    applyAttendingState();
-  } catch (err) {
-    console.error(err);
-    alert("Senden fehlgeschlagen. Bitte nochmal probieren.");
-  }
+  applyAttendingState();
+} catch (err) {
+  console.error(err);
+  alert("Senden fehlgeschlagen. Bitte nochmal probieren.");
+} finally {
+  isSubmitting = false;
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Absenden";
+}
 });
 </script>
 
