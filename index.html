@@ -323,7 +323,7 @@ select,input,textarea{
         </p>
 
         <div class="cta">
-          <button id="submitBtn" type="submit">Absenden</button>
+          <button id="submitBtn" type="button">Absenden</button>
         </div>
 
       </form>
@@ -466,8 +466,11 @@ hotelSelect.addEventListener("change", () => {
   }
 });
 
-document.getElementById("rsvpForm").addEventListener("submit", async (e) => {
-  e.preventDefault();if (isSubmitting) return;
+document.getElementById("submitBtn").addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const form = document.getElementById("rsvpForm");
+  if (!form.reportValidity()) return;if (isSubmitting) return;
 isSubmitting = true;
 
 submitBtn.disabled = true;
